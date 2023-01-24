@@ -6,6 +6,7 @@ import BasketItem from '../../components/BasketItem';
 
 const restaurant = restaurants[0];
 
+
 const BasketScreen = () => {
 
   return (
@@ -23,6 +24,7 @@ const BasketScreen = () => {
         </View>
         <View style={styles.row}>
             <Text style={{fontWeight: '600', color: 'grey'}}>Total</Text>
+            
             <Text style={{marginLeft: 'auto', color: 'grey'}}>$ 100</Text>
         </View>
         <View style={styles.button}>
@@ -31,5 +33,8 @@ const BasketScreen = () => {
     </View>
   );
 };
+
+
+
 
 export default BasketScreen;

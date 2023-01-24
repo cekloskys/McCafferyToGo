@@ -15,7 +15,7 @@ const Header = ({restaurant}) => {
                 Service Fee: ${restaurant.serviceFee} 
             </Text>
             <Text style={styles.subtitle}>
-                {restaurant.hours}
+              Pickup Hours: {restaurant.hours}
             </Text>
             <Text style={styles.menu}>Menu</Text>
         </View> 

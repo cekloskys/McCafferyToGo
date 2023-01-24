@@ -9,6 +9,19 @@ const styles = StyleSheet.create({
       aspectRatio: 5/3,
       marginBottom: 5,
     },
+    completeContainer: {
+      width: '100%',
+      height: 36,
+      backgroundColor: 'lightgrey',
+      paddingTop: 3,
+      paddingLeft: 10,
+      flexDirection: 'row',
+      zIndex: 100,
+      flex: 1,
+    },
+    outer: {
+      height: '100%',
+    },
     title: {
       fontSize: 30,
       fontWeight: '600',    

@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     },
     description: {
         color: 'grey',
-        marginVertical: 5,
+        marginVerticalTop: 5,
+        marginBottom: 2,
     },
     price: {
         fontSize: 16,
