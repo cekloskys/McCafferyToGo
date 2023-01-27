@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+
     row: {
         flexDirection: 'row',
         alignItems:'center',
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         borderRadius: 5,
     },
+
 });
 
 export default styles;

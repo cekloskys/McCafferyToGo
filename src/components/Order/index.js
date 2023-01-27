@@ -8,6 +8,7 @@ const Order = ({order}) => {
   const navigation = useNavigation();
 
   const onPress = () => {
+
     navigation.navigate('Order', {id: order.id})
   };
 
