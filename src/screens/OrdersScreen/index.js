@@ -8,7 +8,6 @@ const OrdersScreen = () => {
     return (
       
         <View style={{flex: 1, width: '100%'}}>
-          <Text style={{textDecoration: 'solid', color: 'red', textAlign: 'center', marginVertical: 50, fontSize: 25}}>Welcome To Your Orders!</Text>
           <FlatList
           data={orders}
           renderItem={({item}) => <Order order={item}/>}
