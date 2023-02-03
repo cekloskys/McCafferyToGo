@@ -8,7 +8,8 @@ const RestaurantItem = ({restaurant}) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('Restaurant', {id: restaurant.id})
+    const id=restaurant.id;
+    navigation.navigate('Restaurant', {id: id})
   };
 // $ {restaurant.deliveryFee} &#8226; {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime} minutes &#8226;
   return (
@@ -20,15 +21,11 @@ const RestaurantItem = ({restaurant}) => {
             <View>
                 <Text style={styles.title}>{restaurant.name}</Text>
                 <Text style={styles.subtitle}>
-                 Pickup Hours: {restaurant.hours}
+                 {restaurant.startHrs} - {restaurant.endHrs} &#8226; ${restaurant.serviceFee} &#8226; {restaurant.location}
                 </Text>
-                <Text style={styles.subtitle}>
-                 
-                </Text>
+                
             </View>
-            <View style={styles.rating}>
-                <Text>{restaurant.rating}</Text>
-            </View>
+            
         </View>           
     </Pressable>
   );

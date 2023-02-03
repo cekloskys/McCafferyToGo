@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import {AntDesign} from '@expo/vector-icons';
 import styles from './styles';
-import restaurants from '../../../assets/data/restaurants.json';
+import { DataStore } from "aws-amplify";
+import { Dish } from '../../models';
 
 const MenuItemDetailScreen = () => {
+  const [dish, setDish] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const navigation = useNavigation();
   const route = useRoute();
   const id = route.params?.id;
-  const dish = restaurants[0].dishes[id - 1];
-
-  const [quantity, setQuantity] = useState(1);
+  //const dish = restaurants[0].dishes[id - 1];
+  console.warn(id);
+  useEffect (() => {
+    
+    DataStore.query(Dish, id).then(setDish);
+  }, []);
 
   const onMinus = () => {
     if (quantity > 1) {

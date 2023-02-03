@@ -8,7 +8,8 @@ const MenuItem = ({dish}) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('Menu Item', {id: dish.id})
+    const id = dish.id;
+    navigation.navigate('Menu Item', {id: id})
   };
 
   return (
@@ -17,7 +18,7 @@ const MenuItem = ({dish}) => {
             <Text style={styles.name}>{dish.name}</Text>
             <Text style={styles.description} numberOfLines={2}>{dish.description}</Text>
             <Text style={styles.description}>Calories: {dish.calories}</Text>
-            <Text style={styles.description}>Gluten Free: {dish.glutenFree}</Text>
+            <Text style={styles.description}>Gluten Free: {dish.glutenFree ? 'Yes' : 'No'}</Text>
             <Text style={styles.price}>$ {dish.price}</Text>
         </View>  
         {dish.image && (<Image source={{uri: dish.image}} style={styles.image} />)}      
