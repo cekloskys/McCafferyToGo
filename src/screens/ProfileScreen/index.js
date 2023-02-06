@@ -1,11 +1,20 @@
 import { SafeAreaView, Text, TextInput, Button } from 'react-native';
 import React, {useState, onSave} from 'react';
+import { Auth, DataStore } from 'aws-amplify';
 import styles from './styles';
+import { User } from '../../models';
+import { useAuthContext } from '../../context/AuthContext';
 
 const ProfileScreen = () => {
 
   const [name, setName] = useState('');
   const [eAddress, setEAddress] = useState('');
+
+  const { sub } = useAuthContext();
+
+  const onSave = () => {
+    DataStore.save(new User({ name, eAddress, sub }));
+  };
 
   return (
     <SafeAreaView><Text style={styles.title}>Profile</Text><TextInput
