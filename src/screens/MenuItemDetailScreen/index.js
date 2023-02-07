@@ -5,7 +5,7 @@ import {AntDesign} from '@expo/vector-icons';
 import styles from './styles';
 import { DataStore } from 'aws-amplify';
 import { Dish } from '../../models';
-import { useBasketContext } from '../../contexts/BasketContext';
+import { useBasketContext } from '../../context/BasketContext';
 
 const MenuItemDetailScreen = () => {
   const [dish, setDish] = useState(null);

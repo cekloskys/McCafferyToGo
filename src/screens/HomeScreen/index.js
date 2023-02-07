@@ -11,7 +11,7 @@ export default function HomeScreen () {
 
   const fetchRestaurants = async () => {
     const results = await DataStore.query(Restaurant);
-    setRestaurants(results);
+    setRestaurants(results); 
   };
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import MenuItem from '../../components/MenuItem';
 import Header from './header';
 import { DataStore } from 'aws-amplify';
 import { Restaurant, Dish } from '../../models';
-import { useBasketContext } from '../../contexts/BasketContext';
+import { useBasketContext } from '../../context/BasketContext';
 
 const RestaurantDetailsScreen = () => {
 
