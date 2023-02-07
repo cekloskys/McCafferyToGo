@@ -4,13 +4,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigation';
 import { Amplify } from 'aws-amplify';
 import awsconfig from './src/aws-exports';
+import BasketContextProvider from './src/contexts/BasketContext';
 
 Amplify.configure({...awsconfig, Analytics: {disabled: true}});
 
 export default function App() {
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <BasketContextProvider>
+        <RootNavigator />
+      </BasketContextProvider>
       <StatusBar style="auto" />
     </NavigationContainer>
   );

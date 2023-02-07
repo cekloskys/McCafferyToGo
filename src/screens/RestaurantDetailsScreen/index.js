@@ -8,50 +8,60 @@ import MenuItem from '../../components/MenuItem';
 import Header from './header';
 import { DataStore } from 'aws-amplify';
 import { Restaurant, Dish } from '../../models';
+import { useBasketContext } from '../../contexts/BasketContext';
 
 const RestaurantDetailsScreen = () => {
 
   const [restaurant, setRestaurant] = useState(null);
   const [dishes, setDishes] = useState([]);
+  const [breakfast, setBreakfast] = useState([]);
+  const [lunch, setLunch] = useState([]);
+  const [snacks, setSnacks] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   const navigation = useNavigation();
   const route = useRoute();
 
   const id = route.params?.id;
-  var snacks = [];
-  var breakfast = [];
-  var drinks = [];
-  var lunch = [];
+
+  const {setRestaurant: setBasketRestaurant} = useBasketContext();
+  
 
   useEffect(() => {
+    setBasketRestaurant(null);
     DataStore.query(Restaurant, id).then(setRestaurant);
-    DataStore.query(Dish, (dish) => dish.restaurantID.eq(id)).then(setDishes);
-    snacks = DataStore.query(Dish, 
+    
+    DataStore.query(Dish, 
       (d) => d.and(d => [
           d.restaurantID.eq(id),
           d.category.eq('Snacks')
-    ]));
+    ])).then(setSnacks);
 
-    breakfast = DataStore.query(Dish, 
+    DataStore.query(Dish, 
       (d) => d.and(d => [
           d.restaurantID.eq(id),
           d.category.eq('Breakfast')
-    ]));
+    ])).then(setBreakfast);
 
-    drinks = DataStore.query(Dish, 
+    DataStore.query(Dish, 
       (d) => d.and(d => [
           d.restaurantID.eq(id),
           d.category.eq('Drinks')
-    ]));
+    ])).then(setDrinks);
 
-    lunch = DataStore.query(Dish, 
+    DataStore.query(Dish, 
       (d) => d.and(d => [
           d.restaurantID.eq(id),
           d.category.eq('Lunch')
-    ]));
+    ])).then(setLunch);
 
 
   }, []);
+
+  useEffect(() => { 
+    setBasketRestaurant(restaurant);
+
+  }, [restaurant])
 
   
 
@@ -72,10 +82,10 @@ const RestaurantDetailsScreen = () => {
       <SectionList
         ListHeaderComponent={() => <Header restaurant={restaurant} />}
         sections={[
-          { title: 'Breakfast', data: dishes },
-          { title: 'Lunch', data: dishes },
-          { title: 'Snacks', data: dishes },
-          { title: 'Drinks', data: dishes }
+          { title: 'Breakfast', data: breakfast },
+          { title: 'Lunch', data: lunch },
+          { title: 'Snacks', data: snacks },
+          { title: 'Drinks', data: drinks }
         ]}
         renderItem={({ item }) => <MenuItem dish={item} />}
         renderSectionHeader={({ section }) => (
