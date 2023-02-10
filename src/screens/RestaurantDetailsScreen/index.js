@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, FlatList, SectionList, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, SectionList, Text, ActivityIndicator, Pressable} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import restaurants from '../../../assets/data/restaurants.json';
@@ -9,6 +9,7 @@ import Header from './header';
 import { DataStore } from 'aws-amplify';
 import { Restaurant, Dish } from '../../models';
 import { useBasketContext } from '../../context/BasketContext';
+//import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const RestaurantDetailsScreen = () => {
 
@@ -24,7 +25,7 @@ const RestaurantDetailsScreen = () => {
 
   const id = route.params?.id;
 
-  const {setRestaurant: setBasketRestaurant} = useBasketContext();
+  const {setRestaurant: setBasketRestaurant, basket, basketDishes} = useBasketContext();
   
 
   useEffect(() => {
@@ -104,8 +105,13 @@ const RestaurantDetailsScreen = () => {
         style={styles.iconContainer}
         onPress={onPress}
       />
-
-
+      {basket && (
+      <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Open basket ({basketDishes.length})
+        </Text>
+      </Pressable>
+      )}
     </View>
   );
 };

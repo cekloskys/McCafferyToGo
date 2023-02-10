@@ -44,7 +44,8 @@ const MenuItemDetailScreen = () => {
     return <ActivityIndicator size={"large"} color="gray" />
   }
 
-  const onAddToBasket = async () => {
+  const onPress = async () => {
+    console.warn(dish);
     await addDishToBasket(dish, quantity);
     //navigation.navigate('Basket');
     navigation.goBack();
@@ -70,7 +71,7 @@ const MenuItemDetailScreen = () => {
                 onPress={onPlus}
             />
         </View>
-        <Pressable style={styles.button} onPress={onAddToBasket}>
+        <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.buttonText}>Add {quantity} To Basket &#8226; $ {getTotalPrice().toFixed(2)}</Text>
         </Pressable>
         </View>
