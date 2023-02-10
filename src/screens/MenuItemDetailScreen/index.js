@@ -45,7 +45,7 @@ const MenuItemDetailScreen = () => {
   }
 
   const onPress = async () => {
-    console.warn(dish);
+    //console.warn(dish);
     await addDishToBasket(dish, quantity);
     //navigation.navigate('Basket');
     navigation.goBack();
