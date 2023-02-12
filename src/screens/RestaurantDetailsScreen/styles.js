@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     menu: {
-      marginVertical: 10,
-      fontSize: 18,
-      color: 'grey',
+      marginVertical: 5,
+      fontSize: 20,
+      fontWeight: '600',
     },
     button: {
       backgroundColor: "black",
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
       padding: 20,
       alignItems: "center",
       margin: 10,
+      borderRadius: 15,
     },
     buttonText: {
       color: "white",

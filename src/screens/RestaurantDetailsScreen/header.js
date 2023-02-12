@@ -12,8 +12,7 @@ const Header = ({restaurant}) => {
         <View style={styles.container}>
             <Text style={styles.title}>{restaurant.name}</Text>
             <Text style={styles.subtitle}>
-              Pickup Hours: {restaurant.startHrs} - {restaurant.endHrs}
-                 
+              Pickup Hours: {restaurant.startHrs} - {restaurant.endHrs}      
             </Text>
             <Text style={styles.subtitle}>
               Service Fee: ${restaurant.serviceFee}

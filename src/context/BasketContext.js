@@ -14,20 +14,22 @@ const BasketContextProvider = ({ children }) => {
 
     const getBasket = async () => {
         //DataStore.query(Basket, b =>
-         //   b.restaurantID("eq", restaurant.id).userID("eq", dbUser.id)
+        //   b.restaurantID("eq", restaurant.id).userID("eq", dbUser.id)
         //).then(baskets => setBasket(baskets[0]));
 
-        const results = await DataStore.query(Basket,
+        const results = await DataStore.query(Basket, 
             (b) => b.and(b => [
                 b.restaurantID.eq(restaurant.id),
                 b.userID.eq(dbUser.id)
             ]));
         setBasket(results[0]);
+        // console.log('Basket');
+        // console.log(basket);
     }
 
     useEffect(() => {
-                getBasket();
-            }, [dbUser, restaurant]);
+        getBasket();
+    }, [dbUser, restaurant]);
 
     useEffect(() => {
         if (basket) {
@@ -35,37 +37,34 @@ const BasketContextProvider = ({ children }) => {
             DataStore.query(BasketDish, (bd) =>
                 bd.basketID.eq(basket.id)).then(setBasketDishes);
         }
-
     }, [basket])
-
 
     const addDishToBasket = async (dish, quantity) => {
         //get the existing basket or create a new one
         let theBasket = basket || (await createNewBasket());
-        console.warn(theBasket);
-
-
+        // console.log('The Basket');
+        // console.log(theBasket);
+        // console.log('The Basket ID');
+        // console.log(theBasket.id);
         //create a basketdish item and save to data store
-        const newDish = await DataStore.save(new BasketDish({ 
-            quantity, Dish: dish, basketID: theBasket.id }));
-
+        const newDish = await DataStore.save(new BasketDish({
+            quantity, 
+            Dish: dish, 
+            basketID: theBasket.id
+        }));
         setBasketDishes([...basketDishes, newDish])
-
     };
 
     const createNewBasket = async () => {
         const newBasket = await
-            DataStore.save(new Basket({ 
-                userID: dbUser.id, 
-                restaurantID: restaurant.id,
-                pickUpTime: '10:00 am'
+            DataStore.save(new Basket({
+                userID: dbUser.id,
+                restaurantID: restaurant.id
+                //pickUpTime: '10:00 am'
             }));
-        
         setBasket(newBasket);
         return newBasket;
-
     };
-
 
     return (
         <BasketContext.Provider value={{ addDishToBasket, setRestaurant, basket, basketDishes }}>
