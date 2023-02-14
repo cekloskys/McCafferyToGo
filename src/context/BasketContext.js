@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { DataStore } from 'aws-amplify';
-import { Basket, BasketDish } from '../models';
+import { Basket, BasketDish, Dish } from '../models';
 import { useAuthContext } from './AuthContext';
 
 const BasketContext = createContext({});
@@ -11,13 +11,46 @@ const BasketContextProvider = ({ children }) => {
     const [restaurant, setRestaurant] = useState(null);
     const [basket, setBasket] = useState(null);
     const [basketDishes, setBasketDishes] = useState([]);
+    const [finalBasketDishes, setFinalBasketDishes] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0.0);
+
+    const getTotalPrice = async () => {
+        const total = finalBasketDishes.reduce(
+            (sum, finalBasketDishes) => 
+            sum + finalBasketDishes?.quantity * finalBasketDishes?.Dish.price, restaurant?.serviceFee);
+        setTotalPrice(total);
+    }
+
+    useEffect(() => {
+        if (restaurant && finalBasketDishes) {
+            getTotalPrice();
+        }
+
+        
+    }, [restaurant, finalBasketDishes]);
+
+    
+    
+    useEffect(() => {
+        // query all dishes
+        const fetchDishes = async () => {
+            const dishes = await DataStore.query(Dish); // assign the products to the cart items
+            setFinalBasketDishes(
+                basketDishes.map(basketDish => ({
+                    ...basketDish,
+                    Dish: dishes.find(d => d.id == basketDish.basketDishDishId),
+                }))
+            );
+        };
+        fetchDishes();
+    }, [basketDishes]);
 
     const getBasket = async () => {
         //DataStore.query(Basket, b =>
         //   b.restaurantID("eq", restaurant.id).userID("eq", dbUser.id)
         //).then(baskets => setBasket(baskets[0]));
 
-        const results = await DataStore.query(Basket, 
+        const results = await DataStore.query(Basket,
             (b) => b.and(b => [
                 b.restaurantID.eq(restaurant.id),
                 b.userID.eq(dbUser.id)
@@ -48,8 +81,8 @@ const BasketContextProvider = ({ children }) => {
         // console.log(theBasket.id);
         //create a basketdish item and save to data store
         const newDish = await DataStore.save(new BasketDish({
-            quantity, 
-            Dish: dish, 
+            quantity,
+            Dish: dish,
             basketID: theBasket.id
         }));
         setBasketDishes([...basketDishes, newDish])
@@ -67,7 +100,7 @@ const BasketContextProvider = ({ children }) => {
     };
 
     return (
-        <BasketContext.Provider value={{ addDishToBasket, setRestaurant, basket, basketDishes }}>
+        <BasketContext.Provider value={{ addDishToBasket, setRestaurant, restaurant, basket, basketDishes, finalBasketDishes, totalPrice }}>
             {children}
         </BasketContext.Provider>
     )

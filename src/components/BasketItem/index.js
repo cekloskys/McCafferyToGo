@@ -3,14 +3,15 @@ import { View, Text} from 'react-native';
 import styles from './styles';
 
 const BasketItem = ({basketItem}) => {
+  //console.log(basketItem);
 
   return (
     <View style={styles.row}>
         <View style={styles.quantityContainer}>
-            <Text>1</Text>
+            <Text>{basketItem.quantity}</Text>
         </View>
-        <Text style={{fontWeight: '600',}}>{basketItem.name}</Text>
-        <Text style={{marginLeft: 'auto',}}>$ {basketItem.price}</Text>
+        <Text style={{fontWeight: '600',}}>{basketItem.Dish.name}</Text>
+        <Text style={{marginLeft: 'auto',}}>$ {basketItem.Dish.price.toFixed(2)}</Text>
     </View>
   );
 };
