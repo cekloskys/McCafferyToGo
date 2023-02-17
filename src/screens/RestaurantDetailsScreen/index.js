@@ -25,6 +25,7 @@ const RestaurantDetailsScreen = () => {
   const {setRestaurant: setBasketRestaurant, basket, basketDishes} = useBasketContext();
   
   useEffect(() => {
+    
     setBasketRestaurant(null);
     DataStore.query(Restaurant, id).then(setRestaurant);
     
@@ -54,6 +55,9 @@ const RestaurantDetailsScreen = () => {
   }, []);
 
   useEffect(() => { 
+    if (!restaurant){
+      return;
+    }
     setBasketRestaurant(restaurant);
   }, [restaurant])
 

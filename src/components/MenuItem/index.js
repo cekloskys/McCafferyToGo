@@ -19,7 +19,7 @@ const MenuItem = ({dish}) => {
             <Text style={styles.description} numberOfLines={2}>{dish.description}</Text>
             <Text style={styles.description}>Calories: {dish.calories}</Text>
             <Text style={styles.description}>Gluten Free: {dish.glutenFree ? 'Yes' : 'No'}</Text>
-            <Text style={styles.price}>$ {dish.price}</Text>
+            <Text style={styles.price}>$ {dish.price.toFixed(2)}</Text>
         </View>  
         {dish.image && (<Image source={{uri: dish.image}} style={styles.image} />)}      
     </Pressable>

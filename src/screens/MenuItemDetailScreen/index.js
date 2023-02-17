@@ -18,6 +18,9 @@ const MenuItemDetailScreen = () => {
   const {addDishToBasket} = useBasketContext();
   
   useEffect (() => {
+    if (!id){
+      return;
+    }
     if (id) {
       DataStore.query(Dish, id).then(setDish);
     }
@@ -42,9 +45,13 @@ const MenuItemDetailScreen = () => {
   }
 
   const onPress = async () => {
-    //console.warn(dish);
-    await addDishToBasket(dish, quantity);
-    navigation.goBack();
+    try{
+      await addDishToBasket(dish, quantity);
+      navigation.goBack();
+
+    } catch(error){
+      console.log(error);
+    }
   };
 
     return (

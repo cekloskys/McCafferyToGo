@@ -15,7 +15,7 @@ const Header = ({restaurant}) => {
               Pickup Hours: {restaurant.startHrs} - {restaurant.endHrs}      
             </Text>
             <Text style={styles.subtitle}>
-              Service Fee: ${restaurant.serviceFee}
+              Service Fee: ${restaurant.serviceFee.toFixed(2)}
             </Text>
             <Text style={styles.subtitle}>
               Location: {restaurant.location}

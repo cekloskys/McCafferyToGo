@@ -22,18 +22,25 @@ const BasketContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        if (!restaurant && finalBasketDishes) {
+            return;
+        }
         if (restaurant && finalBasketDishes) {
             getTotalPrice();
         }
-
-        
     }, [restaurant, finalBasketDishes]);
 
     
     
     useEffect(() => {
+        if (!basketDishes) {
+            return;
+        }
         // query all dishes
         const fetchDishes = async () => {
+            if (!basketDishes) {
+                return;
+            }
             const dishes = await DataStore.query(Dish); // assign the products to the cart items
             setFinalBasketDishes(
                 basketDishes.map(basketDish => ({
@@ -61,10 +68,16 @@ const BasketContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        if (!dbUser && restaurant){
+            return;
+        }
         getBasket();
     }, [dbUser, restaurant]);
 
     useEffect(() => {
+        if (!basket){
+            return;
+        }
         if (basket) {
             //DataStore.query(BasketDish, bd => bd.basketID("eq", basket.id)).then(setBasketDishes);
             DataStore.query(BasketDish, (bd) =>
