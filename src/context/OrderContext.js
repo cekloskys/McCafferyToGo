@@ -78,17 +78,14 @@ const OrderContextProvider = ({ children }) => {
                         Dish: dishes.find(d => d.id == orderDish.orderDishDishId),
                 })); 
 
-
-                setFinalOrderDishes(results);
-                console.log('Final Order Dishes')
-                console.log(finalOrderDishes);
+                
 
 
                 const orderRestaurant = await DataStore.query(Restaurant, (r) =>
                         r.id.eq(order.orderRestaurantId));
                         //console.log(orderRestaurant);
 
-                return {...order, dishes: finalOrderDishes, Restaurant: orderRestaurant }
+                return {...order, dishes: results, Restaurant: orderRestaurant }
 
         }
 

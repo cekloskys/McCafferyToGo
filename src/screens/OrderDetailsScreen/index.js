@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styles from './styles';
-import BasketItem from '../../components/BasketItem';
+import OrderItem from '../../components/OrderItem';
 import { useEffect, useState } from 'react';
 import { useOrderContext } from '../../context/OrderContext';
 
