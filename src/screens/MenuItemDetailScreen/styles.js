@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems:'center',
       justifyContent: 'center',
-      marginTop: 50,
+      marginVertical: 25,
     },
     quantity: {
       fontSize: 25,

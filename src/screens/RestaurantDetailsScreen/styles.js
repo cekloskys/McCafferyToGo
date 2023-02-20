@@ -48,9 +48,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     menu: {
-      marginVertical: 10,
+      marginVertical: 5,
+      fontSize: 20,
+      fontWeight: '600',
+    },
+    button: {
+      backgroundColor: "black",
+      marginTop: "auto",
+      padding: 20,
+      alignItems: "center",
+      margin: 10,
+      borderRadius: 15,
+    },
+    buttonText: {
+      color: "white",
+      fontWeight: "600",
       fontSize: 18,
-      color: 'grey',
     },
   });
 

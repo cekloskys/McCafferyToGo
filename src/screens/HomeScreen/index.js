@@ -6,25 +6,32 @@ import { DataStore } from 'aws-amplify';
 import { Restaurant } from '../../models';
 
 
-export default function HomeScreen () {
+export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState([]);
 
   const fetchRestaurants = async () => {
-    const results = await DataStore.query(Restaurant);
-    setRestaurants(results); 
+    try{
+      const results = await DataStore.query(Restaurant);
+      setRestaurants(results);
+
+    } catch(error){
+      console.log(error);
+    }
+    
   };
+  
 
   useEffect(() => {
     fetchRestaurants();
   }, []);
 
-    return (
-        <View style={styles.page}>
-          <FlatList 
-            data={restaurants} 
-            renderItem={({item}) => <RestaurantItem restaurant={item}/>} 
-            showsVerticalScrollIndicator={false} />
-        </View>
-      );
+  return (
+    <View style={styles.page}>
+      <FlatList
+        data={restaurants}
+        renderItem={({ item }) => <RestaurantItem restaurant={item} />}
+        showsVerticalScrollIndicator={false} />
+    </View>
+  );
 }
 

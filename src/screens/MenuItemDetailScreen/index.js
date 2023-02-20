@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import {AntDesign} from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 import { DataStore } from 'aws-amplify';
 import { Dish } from '../../models';
@@ -16,14 +16,14 @@ const MenuItemDetailScreen = () => {
   const id = route.params?.id;
 
   const {addDishToBasket} = useBasketContext();
-  //const dish = restaurants[0].dishes[id - 1];
-  //console.warn(id);
   
   useEffect (() => {
+    if (!id){
+      return;
+    }
     if (id) {
       DataStore.query(Dish, id).then(setDish);
     }
-    
   }, [id]);
 
   const onMinus = () => {
@@ -44,10 +44,14 @@ const MenuItemDetailScreen = () => {
     return <ActivityIndicator size={"large"} color="gray" />
   }
 
-  const onAddToBasket = async () => {
-    await addDishToBasket(dish, quantity);
-    //navigation.navigate('Basket');
-    navigation.goBack();
+  const onPress = async () => {
+    try{
+      await addDishToBasket(dish, quantity);
+      navigation.goBack();
+
+    } catch(error){
+      console.log(error);
+    }
   };
 
     return (
@@ -70,7 +74,7 @@ const MenuItemDetailScreen = () => {
                 onPress={onPlus}
             />
         </View>
-        <Pressable style={styles.button} onPress={onAddToBasket}>
+        <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.buttonText}>Add {quantity} To Basket &#8226; $ {getTotalPrice().toFixed(2)}</Text>
         </Pressable>
         </View>

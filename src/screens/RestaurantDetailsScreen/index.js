@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, FlatList, SectionList, Text, ActivityIndicator } from 'react-native';
+import { View, SectionList, Text, ActivityIndicator, Pressable} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
-import restaurants from '../../../assets/data/restaurants.json';
 import MenuItem from '../../components/MenuItem';
 import Header from './header';
 import { DataStore } from 'aws-amplify';
@@ -13,7 +12,6 @@ import { useBasketContext } from '../../context/BasketContext';
 const RestaurantDetailsScreen = () => {
 
   const [restaurant, setRestaurant] = useState(null);
-  const [dishes, setDishes] = useState([]);
   const [breakfast, setBreakfast] = useState([]);
   const [lunch, setLunch] = useState([]);
   const [snacks, setSnacks] = useState([]);
@@ -24,10 +22,10 @@ const RestaurantDetailsScreen = () => {
 
   const id = route.params?.id;
 
-  const {setRestaurant: setBasketRestaurant} = useBasketContext();
+  const {setRestaurant: setBasketRestaurant, basket, basketDishes} = useBasketContext();
   
-
   useEffect(() => {
+    
     setBasketRestaurant(null);
     DataStore.query(Restaurant, id).then(setRestaurant);
     
@@ -54,23 +52,18 @@ const RestaurantDetailsScreen = () => {
           d.restaurantID.eq(id),
           d.category.eq('Lunch')
     ])).then(setLunch);
-
-
   }, []);
 
   useEffect(() => { 
+    if (!restaurant){
+      return;
+    }
     setBasketRestaurant(restaurant);
-
   }, [restaurant])
-
-  
 
   if (!restaurant) {
     return (<ActivityIndicator size={"large"} style={{ alignContent: 'center' }} color="gray" />)
-
   }
-
-
 
   const onPress = () => {
     navigation.navigate('Restaurants');
@@ -78,9 +71,17 @@ const RestaurantDetailsScreen = () => {
 
   return (
     <View style={styles.page}>
-
       <SectionList
         ListHeaderComponent={() => <Header restaurant={restaurant} />}
+        ListFooterComponent={() =>
+          basket && (
+            <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
+              <Text style={styles.buttonText}>
+                Open basket ({basketDishes.length})
+              </Text>
+            </Pressable>
+            )
+        }
         sections={[
           { title: 'Breakfast', data: breakfast },
           { title: 'Lunch', data: lunch },
@@ -95,7 +96,6 @@ const RestaurantDetailsScreen = () => {
             </View>
           </View>
         )}
-
       />
       <Ionicons
         name='arrow-back-circle'
@@ -104,8 +104,6 @@ const RestaurantDetailsScreen = () => {
         style={styles.iconContainer}
         onPress={onPress}
       />
-
-
     </View>
   );
 };
