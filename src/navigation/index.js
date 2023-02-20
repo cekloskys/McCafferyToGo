@@ -15,6 +15,7 @@ const Stack = createStackNavigator();
 const RootNavigator = () => {
 
     const {dbUser} = useAuthContext();
+    console.log(dbUser);
 
     return (
         <Stack.Navigator screenOptions={{

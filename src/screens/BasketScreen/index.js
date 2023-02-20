@@ -1,20 +1,27 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import styles from './styles';
 import restaurants from '../../../assets/data/restaurants.json';
 import BasketItem from '../../components/BasketItem';
 import SelectDropdown from 'react-native-select-dropdown';
-
+import { useOrderContext } from '../../context/OrderContext';
+import { useNavigation } from '@react-navigation/native';
 
 const restaurant = restaurants[0];
 
 
 
 const BasketScreen = () => {
+    const { createOrder } = useOrderContext();
+    const navigation = useNavigation();
+
 
     const timeSlots = ["8:15 am", "8:30 am", "8:45 am", "9:00 am"];
 
-
+    const onCreateOrder = async () => {
+        await createOrder();
+        navigation.goBack();
+    }
     return (
         <View style={styles.page}>
             <Text style={styles.name}>{restaurant.name}</Text>
@@ -56,9 +63,9 @@ const BasketScreen = () => {
 
                 <Text style={{ marginLeft: 'auto', color: 'grey' }}>$ 100</Text>
             </View>
-            <View style={styles.button}>
+            <Pressable onPress={createOrder} style={styles.button}>
                 <Text style={styles.buttonText}>Create Order</Text>
-            </View>
+            </Pressable>
         </View>
     );
 };
