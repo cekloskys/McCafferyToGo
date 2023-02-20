@@ -10,8 +10,8 @@ const BasketItem = ({basketItem}) => {
         <View style={styles.quantityContainer}>
             <Text>{basketItem.quantity}</Text>
         </View>
-        <Text style={{fontWeight: '600',}}>{basketItem.Dish.name}</Text>
-        <Text style={{marginLeft: 'auto',}}>$ {basketItem.Dish.price.toFixed(2)}</Text>
+        <Text style={{fontWeight: '600',}}>{basketItem?.Dish.name}</Text>
+        <Text style={{marginLeft: 'auto',}}>$ {basketItem?.Dish.price.toFixed(2)}</Text>
     </View>
   );
 };

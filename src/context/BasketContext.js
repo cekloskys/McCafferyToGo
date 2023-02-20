@@ -38,7 +38,6 @@ const BasketContextProvider = ({ children }) => {
         }
         // query all dishes
         const fetchDishes = async () => {
-            
             const dishes = await DataStore.query(Dish); // assign the products to the cart items
             setFinalBasketDishes(
                 basketDishes.map(basketDish => ({

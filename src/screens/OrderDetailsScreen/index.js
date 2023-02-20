@@ -1,24 +1,22 @@
 import React from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styles from './styles';
-import orders from '../../../assets/data/orders.json';
-import restaurants from '../../../assets/data/restaurants.json';
 import BasketItem from '../../components/BasketItem';
+import { useEffect, useState } from 'react';
+import { useOrderContext } from '../../context/OrderContext';
 
 
-const OrderDetailsHeader = ({order}) => {
-
-  
+const OrderDetailsHeader = ({ order }) => {
 
   return (
     <View style={styles.page}>
       <Image
-        source={{ uri: order.Restaurant.image }}
+        source={{ uri: order.Restaurant[0].image }}
         style={styles.image} />
       <View style={styles.container}>
-        <Text style={styles.title}>{order.Restaurant.name}</Text>
-        <Text style={styles.subtitle}>{order.status} &#8226; 2 days ago</Text>
+        <Text style={styles.title}>{order.Restaurant[0].name}</Text>
+        <Text style={styles.subtitle}>{order.status}</Text>
         <Text style={styles.menu}> Your Orders</Text>
       </View>
     </View>
@@ -26,18 +24,29 @@ const OrderDetailsHeader = ({order}) => {
 };
 
 const OrderDetailsScreen = () => {
-  
+  const [order, setOrder] = useState();
+  const [orderDishItems, setOrderDishItems] = useState()
+  const { getOrder } = useOrderContext();
   const route = useRoute();
   const id = route.params?.id;
+//console.log(id)
+  useEffect(() => {
+    getOrder(id).then(setOrder);
+  }, [])
+  //console.log('Order')
+  //console.log(order);
 
-  const order = orders[id - 1];
+  if (!order) {
+    return <ActivityIndicator size={"large"} collor="grey" />
+  }
 
+  // const order = orders[id - 1];
   return (
     <View style={styles.page}>
       <FlatList
-        data={restaurants[0].dishes}
-        renderItem={({ item }) => <BasketItem basketItem={item} />}
-        ListHeaderComponent={() => <OrderDetailsHeader order={order}/>}
+        ListHeaderComponent={() => <OrderDetailsHeader order={order} />}
+        data={order.dishes}
+        renderItem={({ item }) => <OrderItem orderDish={item} />}
       />
     </View>
 

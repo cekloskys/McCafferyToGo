@@ -1,17 +1,17 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import styles from './styles';
-import restaurants from '../../../assets/data/restaurants.json';
 import BasketItem from '../../components/BasketItem';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useBasketContext } from '../../context/BasketContext';
-
-//const restaurant = restaurants[0];
+import { useOrderContext } from '../../context/OrderContext';
 
 const BasketScreen = () => {
+    const { createOrder } = useOrderContext();
 
     const { restaurant, finalBasketDishes, totalPrice } = useBasketContext();
     console.log(totalPrice);
+    console.log(finalBasketDishes);
 
     const timeSlots = ["8:15 am", "8:30 am", "8:45 am", "9:00 am"];
 
@@ -48,9 +48,9 @@ const BasketScreen = () => {
                 <Text style={{ fontWeight: '600', color: 'grey' }}>Total</Text>
                 <Text style={{ marginLeft: 'auto', color: 'grey' }}>$ {totalPrice.toFixed(2)}</Text>
             </View>
-            <View style={styles.button}>
+            <Pressable onPress={createOrder} style={styles.button}>
                 <Text style={styles.buttonText}>Create Order</Text>
-            </View>
+            </Pressable>
         </View>
     );
 };

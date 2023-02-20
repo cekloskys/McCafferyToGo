@@ -1,23 +1,53 @@
-import { SafeAreaView, Text, TextInput, Button } from 'react-native';
-import React, {useState, onSave} from 'react';
+import { Text, TextInput, Button, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Auth, DataStore } from 'aws-amplify';
 import styles from './styles';
 import { User } from '../../models';
 import { useAuthContext } from '../../context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
+  const {dbUser} = useAuthContext();
 
-  const [name, setName] = useState('');
-  const [eAddress, setEAddress] = useState('');
+  const [name, setName] = useState(dbUser?.name || "");
+  const [eAddress, setEAddress] = useState(dbUser?.email || "");
+  
+  const { sub, setDBUser } = useAuthContext();
 
-  const { sub } = useAuthContext();
+  const navigation = useNavigation();
 
-  const onSave = () => {
-    DataStore.save(new User({ 
+  const onSave = async () => {
+    if(dbUser) {
+      await updateUser();
+    } else {
+      await createUser();
+    }
+    navigation.goBack();
+  };
+
+  const updateUser = async () => {
+    const user = await DataStore.save(
+    User.copyOf(dbUser, (updated) => {
+      updated.name = name;
+      updated.eAddress = eAddress;
+    })
+    );
+    setDBUser(user);
+  };
+
+  const createUser = async () => {
+    try {
+    const user = await DataStore.save(new User({ 
       name, 
       email: eAddress, 
       sub }));
-  };
+      console.log(user);
+      setDBUser(user);
+    } catch (e) {
+      Alert.alert("Error", e.message);
+    }
+  }
 
   return (
     <SafeAreaView><Text style={styles.title}>Profile</Text><TextInput
