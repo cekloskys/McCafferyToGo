@@ -22,7 +22,7 @@ const BasketContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (!restaurant && finalBasketDishes) {
+        if (!restaurant && !finalBasketDishes) {
             return;
         }
         if (restaurant && finalBasketDishes) {
@@ -38,9 +38,7 @@ const BasketContextProvider = ({ children }) => {
         }
         // query all dishes
         const fetchDishes = async () => {
-            if (!basketDishes) {
-                return;
-            }
+            
             const dishes = await DataStore.query(Dish); // assign the products to the cart items
             setFinalBasketDishes(
                 basketDishes.map(basketDish => ({
@@ -68,7 +66,7 @@ const BasketContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (!dbUser && restaurant){
+        if (!dbUser && !restaurant){
             return;
         }
         getBasket();
