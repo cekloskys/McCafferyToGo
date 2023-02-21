@@ -23,7 +23,7 @@ const ProfileScreen = () => {
     } else {
       await createUser();
     }
-    navigation.goBack();
+    navigation.navigate('Restaurants');
   };
 
   const updateUser = async () => {
