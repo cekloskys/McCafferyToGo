@@ -17,6 +17,19 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
   },
+  button: {
+    backgroundColor: "black",
+    marginTop: "auto",
+    padding: 20,
+    alignItems: "center",
+    margin: 10,
+    borderRadius: 15,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 18,
+  },
 
 });
 

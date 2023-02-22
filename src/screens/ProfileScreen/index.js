@@ -6,6 +6,7 @@ import styles from './styles';
 import { User } from '../../models';
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const ProfileScreen = () => {
   const {dbUser} = useAuthContext();
@@ -61,8 +62,12 @@ const ProfileScreen = () => {
         placeholder="Email Address"
         style={styles.input}
       />
-      <Button onPress={onSave} title="Save" /><Text onPress={() => Auth.signOut()} style={{ textAlign: 'center', color: 'red', marginVertical: 10, }}>
-        Sign Out</Text></SafeAreaView>
+      <Pressable onPress={onSave} style={styles.button}>
+        <Text style={styles.buttonText}>Save</Text>
+      </Pressable>
+      <Pressable onPress={() => Auth.signOut()} style={styles.button}>
+        <Text style={styles.buttonText}>SignOut</Text>
+      </Pressable></SafeAreaView>
   );
 }
 

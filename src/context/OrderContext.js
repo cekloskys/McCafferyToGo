@@ -40,7 +40,7 @@ const OrderContextProvider = ({ children }) => {
                         new Order({
                                 userID: dbUser.id,
                                 Restaurant: restaurant,
-                                status: 'NEW',
+                                status: 'PENDING',
                                 total: totalPrice,
                         })
                 );
