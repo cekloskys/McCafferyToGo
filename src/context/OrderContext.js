@@ -40,10 +40,12 @@ const OrderContextProvider = ({ children }) => {
                         new Order({
                                 userID: dbUser.id,
                                 Restaurant: restaurant,
-                                status: 'PENDING',
+                                status: "PENDING",
                                 total: totalPrice,
                         })
                 );
+                console.log('Basket Dishes');
+                console.log(basketDishes);
 
                 //add all the basketdishes to the order
                 await Promise.all(
@@ -52,7 +54,7 @@ const OrderContextProvider = ({ children }) => {
                                         new OrderDish({
                                                 quantity: basketDish.quantity,
                                                 orderID: newOrder.id,
-                                                Dish: basketDish.Dish,
+                                                orderDishDishId: basketDish.basketDishDishId,
                                         })
                                 )
                         )

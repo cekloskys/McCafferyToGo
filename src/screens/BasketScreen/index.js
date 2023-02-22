@@ -4,7 +4,7 @@ import styles from './styles';
 import BasketItem from '../../components/BasketItem';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useBasketContext } from '../../context/BasketContext';
-import {useOrderContext} from '../../context/OrderContext';
+import { useOrderContext } from '../../context/OrderContext';
 
 const BasketScreen = () => {
     const { createOrder } = useOrderContext();
