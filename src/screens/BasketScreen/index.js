@@ -10,8 +10,7 @@ const BasketScreen = () => {
     const { createOrder } = useOrderContext();
 
     const { restaurant, finalBasketDishes, totalPrice } = useBasketContext();
-    console.log(totalPrice);
-    console.log(finalBasketDishes);
+   
 
     const timeSlots = ["8:15 am", "8:30 am", "8:45 am", "9:00 am"];
 

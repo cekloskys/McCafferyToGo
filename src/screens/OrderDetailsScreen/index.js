@@ -29,18 +29,15 @@ const OrderDetailsScreen = () => {
   const { getOrder } = useOrderContext();
   const route = useRoute();
   const id = route.params?.id;
-//console.log(id)
   useEffect(() => {
     getOrder(id).then(setOrder);
   }, [])
-  //console.log('Order')
-  //console.log(order);
+
 
   if (!order) {
     return <ActivityIndicator size={"large"} collor="grey" />
   }
 
-  // const order = orders[id - 1];
   return (
     <View style={styles.page}>
       <FlatList
