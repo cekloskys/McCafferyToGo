@@ -5,7 +5,7 @@ import { useOrderContext } from '../../context/OrderContext';
 
 const OrdersScreen = () => {
   const {finalOrders} = useOrderContext();
-  //console.log(finalOrders);
+  
 
     return (
       

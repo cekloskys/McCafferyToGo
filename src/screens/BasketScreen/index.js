@@ -5,13 +5,20 @@ import BasketItem from '../../components/BasketItem';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useBasketContext } from '../../context/BasketContext';
 import { useOrderContext } from '../../context/OrderContext';
+//import DateTimePicker from '@react-native-community/datetimepicker';
 
 const BasketScreen = () => {
     const { createOrder } = useOrderContext();
 
-    const { restaurant, finalBasketDishes, totalPrice } = useBasketContext();
-    console.log(totalPrice);
-    console.log(finalBasketDishes);
+    const { restaurant, finalBasketDishes, totalPrice, deleteBasket } = useBasketContext();
+
+    //const [time, setTime] = useState(new Date(Date.now()));
+    
+    //function onTimeSelected(event, value) {
+    //    setTime(value);
+    //    setTimePicker(false);
+    //  };
+    
 
     const timeSlots = ["8:15 am", "8:30 am", "8:45 am", "9:00 am"];
 
@@ -50,6 +57,10 @@ const BasketScreen = () => {
             </View>
             <Pressable onPress={createOrder} style={styles.button}>
                 <Text style={styles.buttonText}>Create Order</Text>
+            </Pressable>
+            <View></View>
+            <Pressable  onPress={deleteBasket} style={styles.cancelbutton} >
+                <Text style={styles.buttonText}>Delete Order</Text>
             </Pressable>
         </View>
     );

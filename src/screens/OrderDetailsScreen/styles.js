@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'grey',
     fontSize: 15,
+    //marginVertical: 10,
+    margin: 3,
   },
   container: {
       margin: 10,
@@ -37,8 +39,14 @@ const styles = StyleSheet.create({
   menu: {
     marginVertical: 10,
     fontSize: 18,
-    color: 'grey',
+    color: 'black',
+    fontWeight: '600',
   },
+  separator: {
+    height: 1,
+    backgroundColor: 'lightgrey',
+    marginVertical: 10,
+},
 });
 
   export default styles;

@@ -3,7 +3,7 @@ import { View, Text} from 'react-native';
 import styles from './styles';
 
 const BasketItem = ({basketItem}) => {
-  //console.log(basketItem);
+  
 
   return (
     <View style={styles.row}>

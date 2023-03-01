@@ -36,9 +36,9 @@ const BasketContextProvider = ({ children }) => {
         if (!basketDishes) {
             return;
         }
-        // query all dishes
+        
         const fetchDishes = async () => {
-            const dishes = await DataStore.query(Dish); // assign the products to the cart items
+            const dishes = await DataStore.query(Dish); 
             setFinalBasketDishes(
                 basketDishes.map(basketDish => ({
                     ...basketDish,
@@ -50,18 +50,15 @@ const BasketContextProvider = ({ children }) => {
     }, [basketDishes]);
 
     const getBasket = async () => {
-        //DataStore.query(Basket, b =>
-        //   b.restaurantID("eq", restaurant.id).userID("eq", dbUser.id)
-        //).then(baskets => setBasket(baskets[0]));
+        
 
         const results = await DataStore.query(Basket,
             (b) => b.and(b => [
-                b.restaurantID.eq(restaurant.id),
-                b.userID.eq(dbUser.id)
+                b.restaurantID.eq(restaurant?.id),
+                b.userID.eq(dbUser?.id)
             ]));
         setBasket(results[0]);
-        // console.log('Basket');
-        // console.log(basket);
+        
     }
 
     useEffect(() => {
@@ -76,20 +73,16 @@ const BasketContextProvider = ({ children }) => {
             return;
         }
         if (basket) {
-            //DataStore.query(BasketDish, bd => bd.basketID("eq", basket.id)).then(setBasketDishes);
+            
             DataStore.query(BasketDish, (bd) =>
                 bd.basketID.eq(basket.id)).then(setBasketDishes);
         }
     }, [basket])
 
     const addDishToBasket = async (dish, quantity) => {
-        //get the existing basket or create a new one
+        
         let theBasket = basket || (await createNewBasket());
-        // console.log('The Basket');
-        // console.log(theBasket);
-        // console.log('The Basket ID');
-        // console.log(theBasket.id);
-        //create a basketdish item and save to data store
+        
         const newDish = await DataStore.save(new BasketDish({
             quantity,
             Dish: dish,
@@ -102,15 +95,21 @@ const BasketContextProvider = ({ children }) => {
         const newBasket = await
             DataStore.save(new Basket({
                 userID: dbUser.id,
-                restaurantID: restaurant.id
-                //pickUpTime: '10:00 am'
+                restaurantID: restaurant?.id
+                
             }));
         setBasket(newBasket);
         return newBasket;
     };
 
+    const deleteBasket = async () => {
+        //delete the basket
+        // await DataStore.delete(basket)
+        // await DataStore.delete(order)
+    };
+
     return (
-        <BasketContext.Provider value={{ addDishToBasket, setRestaurant, restaurant, basket, basketDishes, finalBasketDishes, totalPrice }}>
+        <BasketContext.Provider value={{ addDishToBasket, setRestaurant, restaurant, basket, basketDishes, finalBasketDishes, totalPrice, deleteBasket }}>
             {children}
         </BasketContext.Provider>
     )

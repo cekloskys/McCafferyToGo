@@ -16,7 +16,7 @@ const OrderContextProvider = ({ children }) => {
         const[finalOrderDishes, setFinalOrderDishes] = useState([]);
 
         useEffect(() => {
-                DataStore.query(Order, o => o.userID.eq(dbUser.id)).then(setOrders);
+                DataStore.query(Order, o => o.userID.eq(dbUser?.id)).then(setOrders);
         }, [dbUser]);
 
         useEffect(() => {
@@ -34,20 +34,18 @@ const OrderContextProvider = ({ children }) => {
         }, [orders]);
 
         const createOrder = async () => {
-                //console.warn("abc");
-                //create the prder
+
                 const newOrder = await DataStore.save(
                         new Order({
-                                userID: dbUser.id,
+                                userID: dbUser?.id,
                                 Restaurant: restaurant,
                                 status: "PENDING",
                                 total: totalPrice,
                         })
                 );
-                console.log('Basket Dishes');
-                console.log(basketDishes);
+                
 
-                //add all the basketdishes to the order
+                
                 await Promise.all(
                         basketDishes.map((basketDish) =>
                                 DataStore.save(
@@ -59,8 +57,11 @@ const OrderContextProvider = ({ children }) => {
                                 )
                         )
                 );
+
                 //delete the basket
                 // await DataStore.delete(basket)
+                
+                
                 setOrders([...orders, newOrder]);
         };
 
@@ -69,12 +70,10 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderDishes = await DataStore.query(OrderDish, (od) =>
                         od.orderID.eq(id));
-                        //console.log('OrderDishes')
-                        //console.log(orderDishes);
+                        
 
                 const dishes = await DataStore.query(Dish);
-                //console.log('Dishes')
-                //console.log(dishes);
+                
                 const results = orderDishes.map(orderDish => ({
                         ...orderDish,
                         Dish: dishes.find(d => d.id == orderDish.orderDishDishId),
@@ -85,7 +84,7 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderRestaurant = await DataStore.query(Restaurant, (r) =>
                         r.id.eq(order.orderRestaurantId));
-                        //console.log(orderRestaurant);
+                        
 
                 return {...order, dishes: results, Restaurant: orderRestaurant }
 
