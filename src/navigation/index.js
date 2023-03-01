@@ -15,18 +15,13 @@ const Stack = createStackNavigator();
 const RootNavigator = () => {
 
     const {dbUser} = useAuthContext();
-    console.log(dbUser);
 
     return (
-        <Stack.Navigator screenOptions={{
-            headerShown: false,
-        }}>
-            {dbUser ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            
                 <Stack.Screen
                 name="HomeTabs" component={HomeTabs}/>        
-                ) : (
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
-                    )}
+               
         </Stack.Navigator>
     );
 };

@@ -34,12 +34,12 @@ const OrderDetailsScreen = () => {
   useEffect(() => {
     getOrder(id).then(setOrder);
   }, [])
-  
+
   if (!order) {
     return <ActivityIndicator size={"large"} collor="grey" />
   }
 
-  
+
   return (
     <View style={styles.page}>
       <FlatList

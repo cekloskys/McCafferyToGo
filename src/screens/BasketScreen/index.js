@@ -12,6 +12,7 @@ const BasketScreen = () => {
 
     const { restaurant, finalBasketDishes, totalPrice, deleteBasket } = useBasketContext();
 
+
     const timeSlots = ["8:15 am", "8:30 am", "8:45 am", "9:00 am"];
 
     return (

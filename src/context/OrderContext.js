@@ -70,10 +70,12 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderDishes = await DataStore.query(OrderDish, (od) =>
                         od.orderID.eq(id));
+
                         
 
                 const dishes = await DataStore.query(Dish);
                 
+
                 const results = orderDishes.map(orderDish => ({
                         ...orderDish,
                         Dish: dishes.find(d => d.id == orderDish.orderDishDishId),
@@ -84,14 +86,14 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderRestaurant = await DataStore.query(Restaurant, (r) =>
                         r.id.eq(order.orderRestaurantId));
-                        
+
 
                 return {...order, dishes: results, Restaurant: orderRestaurant }
 
         }
 
         return (
-                <OrderContext.Provider value={{ createOrder, orders, getOrder, finalOrders, finalOrderDishes }}>
+                <OrderContext.Provider value={{ createOrder, orders, getOrder, finalOrders, finalOrderDishes, setFinalOrders }}>
                         {children}
                 </OrderContext.Provider>
         );
