@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, Pressable } from 'react-native';
 import styles from './styles';
+import FitImage from 'react-native-fit-image';
+
 
 const RestaurantItem = ({ restaurant }) => {
 
@@ -14,9 +16,10 @@ const RestaurantItem = ({ restaurant }) => {
   
   return (
     <Pressable style={styles.restaurantContainer} onPress={onPress}>
-      <Image
+      <FitImage
         source={{ uri: restaurant.image }}
-        style={styles.image} />
+        style={styles.fitImage} 
+        resizeMode='contain' />
       <View style={styles.row}>
         <View>
           <Text style={styles.title}>{restaurant.name}</Text>

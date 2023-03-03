@@ -5,10 +5,11 @@ const styles = StyleSheet.create({
       width: '100%',
       marginVertical: 10,
     },
-    image: {
-      width: '100%',
-      aspectRatio: 5/3,
+    fitImage: {
+      //width: '100%',
+      //aspectRatio: 3/2,
       marginBottom: 5,
+      //resizeMode: 'contain',
     },
     title: {
       fontSize: 15,

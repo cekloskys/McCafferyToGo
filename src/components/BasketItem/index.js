@@ -4,6 +4,7 @@ import styles from './styles';
 
 const BasketItem = ({basketItem}) => {
 
+
   return (
     <View style={styles.row}>
         <View style={styles.quantityContainer}>

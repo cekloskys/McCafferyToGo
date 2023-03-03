@@ -34,8 +34,7 @@ const OrderContextProvider = ({ children }) => {
         }, [orders]);
 
         const createOrder = async () => {
-                //console.warn("abc");
-                //create the prder
+
                 const newOrder = await DataStore.save(
                         new Order({
                                 userID: dbUser?.id,
@@ -46,7 +45,7 @@ const OrderContextProvider = ({ children }) => {
                 );
                 
 
-                //add all the basketdishes to the order
+                
                 await Promise.all(
                         basketDishes.map((basketDish) =>
                                 DataStore.save(
@@ -58,8 +57,11 @@ const OrderContextProvider = ({ children }) => {
                                 )
                         )
                 );
+
                 //delete the basket
                 // await DataStore.delete(basket)
+                
+                
                 setOrders([...orders, newOrder]);
         };
 
@@ -68,10 +70,12 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderDishes = await DataStore.query(OrderDish, (od) =>
                         od.orderID.eq(id));
-                     
+
+                        
 
                 const dishes = await DataStore.query(Dish);
-              
+                
+
                 const results = orderDishes.map(orderDish => ({
                         ...orderDish,
                         Dish: dishes.find(d => d.id == orderDish.orderDishDishId),
@@ -82,7 +86,7 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderRestaurant = await DataStore.query(Restaurant, (r) =>
                         r.id.eq(order.orderRestaurantId));
-                 
+
 
                 return {...order, dishes: results, Restaurant: orderRestaurant }
 

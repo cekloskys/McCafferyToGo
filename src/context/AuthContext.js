@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect, useContext } from "react";
-// import { useState } from "react/cjs/react.production.min"
 import { Auth, DataStore } from "aws-amplify";
 import { User } from "../models";
 
@@ -9,6 +8,7 @@ const AuthContextProvider = ({ children }) => {
         const [authUser, setAuthUser] = useState(null);
         const [dbUser, setDBUser] = useState(null);
         const sub = authUser?.attributes?.sub;
+
 
 
         useEffect(() => {

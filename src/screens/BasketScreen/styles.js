@@ -26,6 +26,14 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: 'center',
         borderRadius: 20,
+        marginBottom: 20,
+    },
+    cancelbutton: {
+        backgroundColor: 'red',
+        marginTop: 'auto',
+        padding: 20,
+        alignItems: 'center',
+        borderRadius: 20,
     },
     buttonText: {
         color: 'white',

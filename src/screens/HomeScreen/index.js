@@ -3,9 +3,9 @@ import RestaurantItem from '../../components/RestaurantItem';
 import styles from './styles';
 import { useState, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
-import { Restaurant, User } from '../../models';
 import { useAuthContext } from '../../context/AuthContext';
 import {ALERT_TYPE, Dialog, Root} from "react-native-alert-notification";
+import { Restaurant, Dish } from '../../models';
 
 
 
@@ -14,18 +14,32 @@ export default function HomeScreen() {
   const { dbUser } = useAuthContext()
   const [restaurants, setRestaurants] = useState([]);
 
-  const fetchRestaurants = async () => {
-    try{
-      const results = await DataStore.query(Restaurant);
-      setRestaurants(results);
 
-    } catch(error){
+  const fetchRestaurants = async () => {
+    try {
+      let results = await DataStore.query(Restaurant);
+      let dishes = await DataStore.query(Dish);
+      let uniqueDishes = new Set();
+      for (const dish of dishes) {
+        uniqueDishes.add(dish.restaurantID);
+      } 
+      const display = [];
+      for (const uq of uniqueDishes) {
+        let rest = results.find(r => r.id == uq)
+        if (rest.name) {
+          display.push(rest);
+        }
+      } 
+      setRestaurants(display);
+
+
+    } catch (error) {
       console.log(error);
     }
-    
+
   };
-  console.log('DBuser');
-  console.log(dbUser);
+;
+
 
   useEffect(() => {
     fetchRestaurants();
