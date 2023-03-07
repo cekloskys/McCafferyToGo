@@ -1,5 +1,4 @@
-import { View, FlatList, Text, Pressable, RefreshControl, ScrollView } from 'react-native';
-import styles from './styles';
+import { View, FlatList, RefreshControl } from 'react-native';
 import OrderComponent from '../../components/Order';
 import { useOrderContext } from '../../context/OrderContext';
 import { useCallback, useState } from 'react';
@@ -7,13 +6,11 @@ import { DataStore } from 'aws-amplify';
 import { Order, Restaurant } from '../../models';
 import { useAuthContext } from '../../context/AuthContext';
 
-
 const OrdersScreen = () => {
 
   const { finalOrders, setFinalOrders } = useOrderContext();
   const { dbUser } = useAuthContext();
   const [refreshing, setRefreshing] = useState(false);
-
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -32,26 +29,16 @@ const OrdersScreen = () => {
     }
   }, [refreshing]);
 
-
-
-
   return (
-
-    <View style={{ flex: 1, width: '100%' }}>
+    <View style={{ flex: 1 }}>
       <FlatList
         data={finalOrders}
         renderItem={({ item }) => <OrderComponent order={item} />}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}> Check Status</Text>
-      </Pressable>
-
     </View>
 
   );
-
-
 };
 
 export default OrdersScreen;

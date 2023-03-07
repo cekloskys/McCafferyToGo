@@ -28,16 +28,17 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
     },
     button: {
-      backgroundColor: 'black',        
+      backgroundColor: '#fca43a',
       marginTop: 'auto',
-      padding: 20,
+      padding: 15,
       alignItems: 'center',
-      borderRadius: 20,
+      //borderRadius: 20,
+      margin: 10,
     },
     buttonText: {
       color: 'white',
-      fontWeight: '600',
-      fontSize: 18,
+      fontSize: 14,
+      fontWeight: '500',
     },
   });
 

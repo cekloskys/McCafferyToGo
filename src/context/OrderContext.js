@@ -33,7 +33,7 @@ const OrderContextProvider = ({ children }) => {
                 fetchRestaurants();
         }, [orders]);
 
-        const createOrder = async () => {
+        const createOrder = async (pickUpTime) => {
 
                 const newOrder = await DataStore.save(
                         new Order({
@@ -41,6 +41,7 @@ const OrderContextProvider = ({ children }) => {
                                 Restaurant: restaurant,
                                 status: "PENDING",
                                 total: totalPrice,
+                                pickUpTime
                         })
                 );
                 

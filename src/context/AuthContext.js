@@ -9,8 +9,6 @@ const AuthContextProvider = ({ children }) => {
         const [dbUser, setDBUser] = useState(null);
         const sub = authUser?.attributes?.sub;
 
-
-
         useEffect(() => {
                 Auth.currentAuthenticatedUser({ bypassCache: true }).then(setAuthUser);
         }, []);
@@ -27,11 +25,8 @@ const AuthContextProvider = ({ children }) => {
                 if (!sub) {
                         return;
                 }
-                getDbUser();
-                
+                getDbUser();   
         }, [sub]);
-
-
 
         return (
                 <AuthContext.Provider value={{ authUser, dbUser, sub, setDBUser }}>
@@ -39,8 +34,6 @@ const AuthContextProvider = ({ children }) => {
                 </AuthContext.Provider>
         );
 };
-
-
 
 export default AuthContextProvider;
 

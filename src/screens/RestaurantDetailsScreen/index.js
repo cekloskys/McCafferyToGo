@@ -77,7 +77,7 @@ const RestaurantDetailsScreen = () => {
           basket && (
             <Pressable onPress={() => navigation.navigate("Basket")} style={styles.button}>
               <Text style={styles.buttonText}>
-                Open basket ({basketDishes.length})
+                OPEN BASKET ({basketDishes.length})
               </Text>
             </Pressable>
             )
@@ -92,7 +92,7 @@ const RestaurantDetailsScreen = () => {
         renderSectionHeader={({ section }) => (
           <View style={styles.completeContainer}>
             <View style={{ width: '70%' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{section.title}</Text>
+              <Text style={{ fontSize: 18, fontWeight: '500', color: 'white' }}>{section.title}</Text>
             </View>
           </View>
         )}

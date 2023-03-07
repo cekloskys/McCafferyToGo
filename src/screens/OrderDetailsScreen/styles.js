@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   container: {
-      margin: 10,
+      marginHorizontal: 10,
+      marginVertical: 5,
   },
   iconContainer: {
       position: 'absolute',
@@ -37,16 +38,19 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   menu: {
-    marginVertical: 10,
+    //marginVertical: 10,
     fontSize: 18,
     color: 'black',
-    fontWeight: '600',
   },
   separator: {
     height: 1,
     backgroundColor: 'lightgrey',
     marginVertical: 10,
-},
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
   export default styles;

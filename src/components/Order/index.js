@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 const Order = ({order}) => {
 
   const navigation = useNavigation();
@@ -10,7 +9,6 @@ const Order = ({order}) => {
   console.log(order);
 
   const onPress = () => {
-
     navigation.navigate('Order', {id: order.id})
   };
 
@@ -20,11 +18,12 @@ const Order = ({order}) => {
       style={{flexDirection: 'row', margin: 10, alignItems: 'center',}}>
         <Image 
             source={{uri: order.Restaurant.image}} 
-            style={{width: 75, height: 75, marginRight: 10,}} />
-        <View>
+            style={{width: 100, height: 100, marginRight: 10,}} />
+        <View style={{flex: 1,}}>
             <Text style={{fontWeight: '600', fontSize: 16,}}>{order.Restaurant.name}</Text>
-            <Text style={{marginVertical: 5, color: 'grey',}}>${order.total.toFixed(2)}</Text>
-            <Text style={{color: 'grey',}}>{order.status}</Text>
+            <Text style={{color: 'grey',}}>Total: ${order.total.toFixed(2)}</Text>
+            <Text style={{color: 'grey',}}>Status: {order.status}</Text>
+            <Text style={{color: 'grey',}}>Pickup Time: {order.pickUpTime}</Text>
         </View>  
     </Pressable>
   );

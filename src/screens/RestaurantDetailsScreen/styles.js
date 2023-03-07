@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     completeContainer: {
       width: '100%',
       height: 36,
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#8c351f',
       paddingTop: 3,
       paddingLeft: 10,
       flexDirection: 'row',
@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
       fontWeight: '600',
     },
     button: {
-      backgroundColor: "black",
-      marginTop: "auto",
-      padding: 20,
-      alignItems: "center",
+      backgroundColor: '#fca43a',
+      marginTop: 'auto',
+      padding: 15,
+      alignItems: 'center',
+      //borderRadius: 20,
       margin: 10,
-      borderRadius: 15,
     },
     buttonText: {
-      color: "white",
-      fontWeight: "600",
-      fontSize: 18,
+      color: 'white',
+      fontSize: 14,
+      fontWeight: '500',
     },
   });
 
