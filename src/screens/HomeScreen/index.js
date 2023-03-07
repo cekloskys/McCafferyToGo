@@ -33,7 +33,7 @@ export default function HomeScreen() {
     }
 
   };
-
+  console.log(restaurants);
 
   useEffect(() => {
     fetchRestaurants();
