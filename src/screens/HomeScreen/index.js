@@ -4,16 +4,13 @@ import styles from './styles';
 import { useState, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
 import { useAuthContext } from '../../context/AuthContext';
-import {ALERT_TYPE, Dialog, Root} from "react-native-alert-notification";
+import { ALERT_TYPE, Dialog, Root } from "react-native-alert-notification";
 import { Restaurant, Dish } from '../../models';
-
-
 
 export default function HomeScreen() {
 
   const { dbUser } = useAuthContext()
   const [restaurants, setRestaurants] = useState([]);
-
 
   const fetchRestaurants = async () => {
     try {
@@ -22,14 +19,14 @@ export default function HomeScreen() {
       let uniqueDishes = new Set();
       for (const dish of dishes) {
         uniqueDishes.add(dish.restaurantID);
-      } 
+      }
       const display = [];
       for (const uq of uniqueDishes) {
         let rest = results.find(r => r.id == uq)
         if (rest.name) {
           display.push(rest);
         }
-      } 
+      }
       setRestaurants(display);
 
 
@@ -42,18 +39,17 @@ export default function HomeScreen() {
   useEffect(() => {
     fetchRestaurants();
   }, []);
-const displayNotifacation = () => {
-  Dialog.show({
-    type: ALERT_TYPE.SUCCESS,
-    title: 'Welcome',
-    textBody: 'Dont forget to input your name and email into the profile screen please.',
-    button: 'Close', 
-  });
-}
+  const displayNotifacation = () => {
+    Dialog.show({
+      type: ALERT_TYPE.SUCCESS,
+      title: 'Welcome',
+      textBody: 'Dont forget to input your name and email into the profile screen please.',
+      button: 'Close',
+    });
+  }
   useEffect(() => {
-    if(!dbUser) {
-      console.log('Effect');
-     displayNotifacation();
+    if (!dbUser) {
+      displayNotifacation();
     }
   }, []);
 

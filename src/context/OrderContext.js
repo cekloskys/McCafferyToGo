@@ -44,9 +44,7 @@ const OrderContextProvider = ({ children }) => {
                                 pickUpTime
                         })
                 );
-                
-
-                
+                  
                 await Promise.all(
                         basketDishes.map((basketDish) =>
                                 DataStore.save(
@@ -61,8 +59,7 @@ const OrderContextProvider = ({ children }) => {
 
                 //delete the basket
                 // await DataStore.delete(basket)
-                
-                
+                                
                 setOrders([...orders, newOrder]);
         };
 
@@ -71,23 +68,15 @@ const OrderContextProvider = ({ children }) => {
 
                 const orderDishes = await DataStore.query(OrderDish, (od) =>
                         od.orderID.eq(id));
-
-                        
-
                 const dishes = await DataStore.query(Dish);
                 
-
                 const results = orderDishes.map(orderDish => ({
                         ...orderDish,
                         Dish: dishes.find(d => d.id == orderDish.orderDishDishId),
                 })); 
 
-                
-
-
                 const orderRestaurant = await DataStore.query(Restaurant, (r) =>
                         r.id.eq(order.orderRestaurantId));
-
 
                 return {...order, dishes: results, Restaurant: orderRestaurant }
 

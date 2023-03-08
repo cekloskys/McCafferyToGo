@@ -5,7 +5,7 @@ import BasketItem from '../../components/BasketItem';
 import { useBasketContext } from '../../context/BasketContext';
 import { useOrderContext } from '../../context/OrderContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { useNavigation } from '@react-navigation/native';
 
 const BasketScreen = () => {
     const { createOrder } = useOrderContext();
@@ -14,6 +14,8 @@ const BasketScreen = () => {
     const [timePicker, setTimePicker] = useState(false);
     const [time, setTime] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState('');
+
+    const navigation = useNavigation();
 
     function showTimePicker() {
         setTimePicker(true);
@@ -31,6 +33,12 @@ const BasketScreen = () => {
         setTimePicker(false);
     };
     
+    const onDeleteBasket = () => {
+        deleteBasket();
+        navigation.navigate('Restaurants');
+        alert('Basket deleted.')
+    };
+
     const validateOrder = () => {
         
         if (!selectedTime) {
@@ -68,7 +76,8 @@ const BasketScreen = () => {
 
         createOrder(selectedTime);
     }
-
+    console.log('Final Basket Dishes');
+    console.log(finalBasketDishes);
     return (
         <View style={styles.page}>
             <Text style={styles.name}>{restaurant?.name}</Text>
@@ -103,8 +112,8 @@ const BasketScreen = () => {
             <Pressable onPress={validateOrder} style={styles.button}>
                 <Text style={styles.buttonText}>CREATE ORDER</Text>
             </Pressable>
-            <Pressable onPress={deleteBasket} style={styles.cancelbutton} >
-                <Text style={styles.buttonText}>DELETE ORDER</Text>
+            <Pressable onPress={onDeleteBasket} style={styles.cancelbutton} >
+                <Text style={styles.buttonText}>DELETE BASKET</Text>
             </Pressable>
         </View>
     );

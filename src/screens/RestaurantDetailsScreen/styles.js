@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     completeContainer: {
       width: '100%',
       height: 36,
-      backgroundColor: '#8c351f',
+      backgroundColor: 'darkred',
       paddingTop: 3,
       paddingLeft: 10,
       flexDirection: 'row',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     button: {
       backgroundColor: '#fca43a',
-      marginTop: 'auto',
+      marginTop: 10,
       padding: 15,
       alignItems: 'center',
       //borderRadius: 20,

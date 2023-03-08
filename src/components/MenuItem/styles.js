@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     image: {
         height: 75,
         aspectRatio: 1,
+        alignSelf: 'center',
     }
 });
 
