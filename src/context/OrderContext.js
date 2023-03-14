@@ -58,7 +58,8 @@ const OrderContextProvider = ({ children }) => {
                 );
 
                 //delete the basket
-                // await DataStore.delete(basket)
+                await DataStore.delete(basket)
+                // await DataStore.delete(Basket, b => b.id.eq(basket.id));
                                 
                 setOrders([...orders, newOrder]);
         };

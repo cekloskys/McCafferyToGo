@@ -2,7 +2,7 @@ import { FlatList, View } from 'react-native';
 import RestaurantItem from '../../components/RestaurantItem';
 import styles from './styles';
 import { useState, useEffect } from 'react';
-import { DataStore } from 'aws-amplify';
+import { DataStore, Hub } from 'aws-amplify';
 import { useAuthContext } from '../../context/AuthContext';
 import { ALERT_TYPE, Dialog, Root } from "react-native-alert-notification";
 import { Restaurant, Dish } from '../../models';
@@ -37,7 +37,24 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    fetchRestaurants();
+    const removeListener = Hub.listen("datastore", async (capsule) => {
+      const {
+        payload: { event, data },
+      } = capsule;
+ 
+      console.log("DataStore event", event, data);
+ 
+      if (event === "ready") {
+        fetchRestaurants();
+      }
+    });
+
+      DataStore.start();
+ 
+    return () => {
+      removeListener();
+    };
+    
   }, []);
   const displayNotifacation = () => {
     Dialog.show({

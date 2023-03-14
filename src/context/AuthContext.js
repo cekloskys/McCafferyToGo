@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { Auth, DataStore } from "aws-amplify";
+import { Auth, DataStore, Hub } from "aws-amplify";
 import { User } from "../models";
 
 const AuthContext = createContext({});
@@ -19,11 +19,27 @@ const AuthContextProvider = ({ children }) => {
         };
 
         useEffect(() => {
-                if (!sub) {
-                        return;
-                }
-                getDbUser();   
-        }, [sub]);
+                const removeListener = Hub.listen("datastore", async (capsule) => {
+                        const {
+                                payload: { event, data },
+                        } = capsule;
+
+                        console.log("DataStore event", event, data);
+                        
+                        if (!sub) {
+                                return;
+                        }
+
+                        if (event === "ready") {
+                                getDbUser();
+                        }
+                });
+                DataStore.start();
+
+                return () => {
+                        removeListener();
+                };
+                }, [sub]);
 
         return (
                 <AuthContext.Provider value={{ authUser, dbUser, sub, setDBUser }}>
